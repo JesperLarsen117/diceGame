@@ -1,0 +1,44 @@
+i {
+    font-size: 5em;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    width: 100vw;
+}
+.dice-holder {
+    width: 20%;
+    margin: 0 auto;
+}
+.playArea {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    width: 80%;
+    margin: 0 auto;
+}
+.greenBlock {
+    width: 100%;
+    height: 80px;
+    background-color: rgb(57, 214, 104);
+    border: 2px solid rgba(0, 0, 0, 0.185);
+}
+.block {
+    width: 100%;
+    height: 80px;
+    background-color: rgb(182, 59, 59);
+    border: 2px solid rgba(0, 0, 0, 0.185);
+}
+.qustion {
+    background-color: rgb(185, 61, 185);
+}
+.ladder {
+    background-color: #4173cf;
+}
+.player {
+    display: inline-block;
+    font-size: 0.5em;
+}
