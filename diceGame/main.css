@@ -33,7 +33,7 @@ body {
     border: 2px solid rgba(0, 0, 0, 0.185);
 }
 .qustion {
-    background-color: rgb(185, 61, 185);
+    background-image: url(images/questionmark.png);
 }
 .ladder {
     background-color: #4173cf;
@@ -80,3 +80,4 @@ body {
     text-decoration: none;
     cursor: pointer;
   }
+
