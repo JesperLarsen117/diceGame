@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <section class="dice-holder">
-        <div id="gameboard"></div>
-        <div id="display_result"></div>
-        <button type="button" id="rollthedice">Roll</button>
-    </section>
+
 <div class="playArea" id="playArea">
+        <section class="dice-holder">
+                <div id="gameboard"></div>
+                <div id="display_result"></div>
+                <button type="button" id="rollthedice">Roll</button>
+            </section>
     <div class="player notStackable" id="playerOne" draggable="true" ondragstart="drag(event)"><i class="fas notStackable fa-ghost"></i></div>
     <div class="player notStackable" id="playerTwo" draggable="true" ondragstart="drag(event)"><i class="fas notStackable fa-chess-queen"></i></div>
 </div>

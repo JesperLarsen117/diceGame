@@ -25,24 +25,43 @@ body {
 .greenBlock {
     width: 100%;
     height: 80px;
-    background-color: rgb(57, 214, 104);
+    background-color: #39d668;
     border: 2px solid rgba(0, 0, 0, 0.185);
 }
-.block {
+
+.greenBlockTwo {
     width: 100%;
     height: 80px;
-    background-color: rgb(182, 59, 59);
+    background-color: #39d668;
     border: 2px solid rgba(0, 0, 0, 0.185);
 }
-.goTo {
+.greenBlockThree {
     width: 100%;
     height: 80px;
-    background-color: rgb(87, 214, 13);
+    background-color: #39d668;
     border: 2px solid rgba(0, 0, 0, 0.185);
 }
-.qustion {
-    background-color: rgb(185, 61, 185);
+.greenBlockFour {
+    width: 100%;
+    height: 80px;
+    background-color: #39d668;
+    border: 2px solid rgba(0, 0, 0, 0.185);
 }
+.question {
+    width: 100%;
+    height: 80px;
+    background-color: rgb(185, 40, 173) !important;
+    border: 2px solid rgba(0, 0, 0, 0.185);
+}
+/* .greenBlock:first-child{
+background: yellow;
+}
+.greenBlock:nth-child(3){
+background: blue;
+}
+.greenBlock:nth-child(6){
+background: blue;
+} */
 .qustion-box {
     z-index: 100;
     position: absolute;
@@ -72,6 +91,11 @@ body {
     border: 10px solid #00ff00;
     animation: greenBorder 400ms ease-in-out forwards;
 }
+.red-border {
+    border: 10px solid #f31818;
+    animation: greenBorder 400ms ease-in-out forwards;
+}
+
 #rightOrWrong {
     font-size: 2em;
     position: absolute;
@@ -88,17 +112,27 @@ body {
     border: none;
     cursor: pointer;
 }
-.ladder {
-    background-color: #4173cf;
-}
+
 .player {
+    transition: all 200ms ease-in-out;
+    position: relative;
     display: inline-block;
     font-size: 0.5em;
     cursor: pointer;
 }
+#playerOne {
+    color: black;
+}
+#playerTwo {
+    color: blue;
+}
 .dice-holder {
+    position: absolute;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .dice {
     animation: rollDicetest 1s cubic-bezier(0, 0.11, 0.25, 0.98) forwards;
@@ -140,19 +174,19 @@ body {
 }
 @keyframes rollDicetest {
     0% {
-        transform: translate(-300px, -100px) rotate(0);
+        transform: translate(-300px, -150px) rotate(0);
     }
     10% {
-        transform: translate(-250px, -80px) rotate(40deg);
+        transform: translate(-250px, -100px) rotate(40deg);
     }
     20% {
-        transform: translate(-200px, -60px) rotate(120deg);
+        transform: translate(-200px, -80px) rotate(120deg);
     }
     30% {
-        transform: translate(-150px, -40px) rotate(180deg);
+        transform: translate(-150px, -50px) rotate(180deg);
     }
     40% {
-        transform: translate(-100px, -20px)rotate(200deg);
+        transform: translate(-100px, -25px)rotate(200deg);
     }
     50% {
         transform: translate(-50px, 0) rotate(220deg);

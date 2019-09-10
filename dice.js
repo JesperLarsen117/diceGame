@@ -14,17 +14,24 @@ document.getElementById("rollthedice").addEventListener("click", rollTheDice);
 let answerBtn = document.getElementById('answerBtn');
 let answer = document.getElementsByName('answer');
 
-let currentPosition = document.getElementById('playerOne');
+let playerOne = document.getElementById('playerOne');
 
-let map = [1,1,1,1,1,1,1,1,1,2,
-    0,0,0,0,0,0,0,0,0,1,
-    3,1,1,1,1,1,2,1,1,1,
-    1,0,0,0,0,0,0,0,0,0,
-    1,1,2,1,1,1,1,1,1,1,
-    0,0,0,0,0,0,0,0,0,1,
-    1,1,1,1,1,1,2,1,3,1,
-    1,0,0,0,0,0,0,0,0,0,
-    1,1,1,1,2,1,1,1,1,1];
+playerOneTurn = 1;
+playerTwoTurn = 0;
+
+let playerOneMoves = 0
+let playerTwoMoves = 0
+
+let map = [
+            3,3,3,3,3,3,3,3,3,3,
+            2,0,0,6,0,6,0,0,0,4,
+            2,0,0,0,0,0,0,0,0,4,
+            2,6,0,0,0,0,0,0,0,4,
+            2,0,0,0,0,0,0,0,6,4,
+            2,0,0,0,0,0,0,0,0,4,
+            2,6,0,0,0,0,0,0,6,4,
+            2,0,6,0,0,6,0,0,0,4,
+            1,1,1,1,1,1,1,1,1,1];
 /**
  * Funktion til at hente tilfÃ¦ldigt nummer
  * @param num_eyes
@@ -50,6 +57,7 @@ function initGame() {
 /**
  * Funktion til at kaste terninger med
  */
+let moves = null;
 function rollTheDice() {
     // Nulstiller spil
     initGame();
@@ -61,13 +69,45 @@ function rollTheDice() {
         elm.setAttribute("class", "dice fas fa-dice-" + array_dice_names[num]);
         gameboard.appendChild(elm);
 
-        console.log(currentPosition.parentElement);
-        
+        // console.log(currentPosition.parentElement);
 
     }
+    
+    if (playerOneTurn == 1) {
+        playerOneMoves += Number(array_dices);
+        playerOneTurn = 0;
+        playerTwoTurn = 1;
+    } else if(playerTwoTurn == 1) {
+        playerTwoMoves += Number(array_dices);
+        playerTwoTurn = 0;
+        playerOneTurn = 1;
+    }
+    
+    console.log(playerOneMoves);
+    console.log(playerTwoMoves);
+    for (let i = 0; i < tileArray().length; i++) {
+        tileArray()[i].style.border = "2px solid rgba(0, 0, 0, 0.185)";
+        if (playerOneTurn == 1) {
+            if (playerOneMoves >= tileArray().length) {
+                
+                playerOneMoves = tileArray().length - parseInt(playerOneMoves) + parseInt(array_dices);
+                
+                } else {
+                    tileArray()[playerTwoMoves].style.border = "5px solid blue";
+                }
+            }
 
+        if (playerTwoTurn == 1) {
+            if (playerTwoMoves >= tileArray().length) {
+                
+                playerTwoMoves = tileArray().length - parseInt(playerTwoMoves) + parseInt(array_dices);
+                
+                } else {
+                    tileArray()[playerOneMoves].style.border = "5px solid black";
+                }
+            }
+    }
 }
-
 
 
 // Kaster terningerne nÃ¥r siden loades
@@ -83,16 +123,19 @@ for (let i = 0; i < map.length; i++) {
         playArea.insertAdjacentHTML("afterbegin", '<div class=" block"></div>');
     } else 
     if(map[i] == 1) {
-        playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" ondragover="allowDop(event)" class="greenBlock"></div>');
+        playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlock"></div>');
     } else 
     if(map[i] == 2) {
-        playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" ondragover="allowDop(event)" class="qustion"></div>');
+        playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlockTwo"></div>');
     } else 
     if(map[i] == 3) {
-        playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" ondragover="allowDop(event)" class="ladder"></div>');
+        playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlockThree"></div>');
     }
-    if(map[i] == 5) {
-        playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" ondragover="allowDop(event)" class="goTo"></div>');
+    if(map[i] == 4) {
+        playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlockFour"></div>');
+    }
+    if(map[i] == 6) {
+        playArea.insertAdjacentHTML("afterbegin", '<div class="qustion"></div>');
     }
 }
 function allowDop(ev) { 
@@ -103,6 +146,7 @@ function drag(ev) {
     let data = ev.dataTransfer.setData("text", ev.target.id);
 
 }
+
 let questions = [
     {
       question: "Hvordan start man et html document?",
@@ -110,7 +154,36 @@ let questions = [
       answer2: "&lt;html !DOCTYPE&gt;",
       answer3: "&lt;html&gt;",
       answer: "answer1"
+    },
+    {
+        question: "Hvordan laver man en variable i javascript?",
+        answer1: 'navn = "String"',
+        answer2: 'let navn = "String"',
+        answer3: 'let = "string"',
+        answer: "answer2"
+    },
+    {
+        question: "Hvad står html for?",
+        answer1: 'Hyper Tag Markup Language',
+        answer2: 'Hyper Text Markup Language',
+        answer3: 'Hyperlinking Text Marking Language',
+        answer: "answer2"
+    },
+    {
+        question: "Hvad er det korrekte tag for en line break?",
+        answer1: '&lt;line /&gt;',
+        answer2: '&lt;brk /&gt;',
+        answer3: '&lt;br /&gt;',
+        answer: "answer3"
+    },
+    {
+        question: "Hvad står css for",
+        answer1: 'Cascading Style Sheet',
+        answer2: 'Computing Style Sheet',
+        answer3: 'Creative Styling Sheet',
+        answer: "answer1"
     }
+    
   ];
 function drop(ev) {
     playArea.classList = "playArea"; 
@@ -119,35 +192,60 @@ function drop(ev) {
                 let data = ev.dataTransfer.getData("text");
                 ev.target.parentElement.parentElement.appendChild(document.getElementById(data));
                 greenBlock[0].appendChild(ev.target.parentElement);
+                if (ev.target.parentElement.id === "playerOne") {
+                    playerOneMoves = 0;
+                }
+                if (ev.target.parentElement.id === "playerTwo") {
+                    playerTwoMoves = 0;
+                }
+                
         } else {
             ev.preventDefault();
             let data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById(data));
         }
-
-    if(ev.target.classList == "qustion") {
-
-        document.body.insertAdjacentHTML("afterbegin", `<div id="qustion-box" class="qustion-box"><h2>${questions[0].question}</h2><input type="radio" name="answer" value="answer1" /><span>${questions[0].answer1}</span><br /><input type="radio" name="answer" value="answer2" /><span>${questions[0].answer2}</span><br /><input type="radio" name="answer" value="answer3" /><span>${questions[0].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></div>`);
+        
+    if(ev.target.classList[2] == "question") {
+        let questionNumber = Math.floor(Math.random(0, ) * 6);
+        document.body.insertAdjacentHTML("afterbegin", `<div id="qustion-box" class="qustion-box"><h2>${questions[questionNumber].question}</h2><input type="radio" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></div>`);
         answerBtn = document.getElementById('answerBtn');
         answer = document.getElementsByName('answer');
+
     }
 }
 
 function answerFunc() {
     for (let i = 0; i < answer.length; i++) {
         if(answer[i].checked ) {
-            if (questions[0].answer == answer[i].value) {
+            if (questions[questionNumber].answer == answer[i].value) {
                 playArea.classList = " playArea green-border";
 
                 document.getElementById("qustion-box").remove();
-                document.getElementById('rightOrWrong').innerHTML = "Rigtig! Slå igen og ryg frem."
+                document.getElementById('rightOrWrong').innerHTML = "Rigtig! Slå igen og ryk frem."
             }
         } else {
             playArea.classList = "playArea red-border";
 
-            document.getElementById('rightOrWrong').innerHTML = "Forkert! Slå igen og ryg tilbage."
+            document.getElementById('rightOrWrong').innerHTML = "Forkert! Vent til det er din tur."
             document.getElementById("qustion-box").remove();
 
         }
     }
 }
+
+function tileArray() {
+    let greenBlock = Array.from(document.getElementsByClassName('greenBlock'));
+    let greenBlockTwo = Array.from(document.getElementsByClassName('greenBlockTwo'));
+    let greenBlockThree = Array.from(document.getElementsByClassName('greenBlockThree'));
+    let greenBlockFour = Array.from(document.getElementsByClassName('greenBlockFour'));
+    let tileArr = [].concat(greenBlock, greenBlockTwo, greenBlockThree.reverse(), greenBlockFour.reverse());
+
+    return tileArr;
+}
+// console.log(tileArray());
+
+tileArray()[2].classList += " question";
+tileArray()[5].classList += " question";
+tileArray()[12].classList += " question";
+tileArray()[15].classList += " question";
+tileArray()[20].classList += " question";
