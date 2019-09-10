@@ -111,3 +111,19 @@ function drop(ev) {
         document.body.insertAdjacentHTML("afterbegin", '<div class="qustion-box">Spørgsmål:'+  +'</div>');
     }
 }
+
+//Rules button
+
+var modal = document.getElementById("rules");
+
+var btn = document.getElementById("rulesBtn");
+
+var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
