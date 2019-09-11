@@ -260,10 +260,10 @@ function answerFunc() {
     for (let i = 0; i < answer.length; i++) {
             if (answer[i].checked) {
                 if (questions[questionNumber].answer === answer[i].value) {
-                    
                 playArea.classList = " playArea green-border";
                 document.getElementById('rightOrWrong').innerHTML = "Rigtig! Slå igen og ryk frem."
                 document.getElementById("qustion-box").remove();
+
             } else {
                 console.error("%cWRONG NOOB", 'color: blue; font-family: cursive; font-size: 5em;');
                 
