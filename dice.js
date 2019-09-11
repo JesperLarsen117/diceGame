@@ -1,19 +1,20 @@
 // Dice timer.
 let diceTimer; 
-// SÃ¦tter antal af terninger
+// Sætter antal af terninger
 let num_dices = 1;
 // Array til terninger
 let array_dices = [];
-// SÃ¦tter array til engelske tal - skal bruges til font awesome ikoner
+// Sætter array til engelske tal - skal bruges til font awesome ikoner
 let array_dice_names = ["", "one", "two", "three", "four", "five", "six"];
-// SÃ¦tter var til html element der skal vise resultater
+// Sætter var til html element der skal vise resultater
 let display_result = document.getElementById("display_result");
-// SÃ¦tter addEventListener til klik pÃ¥ knap
+// Sætter addEventListener til klik på knap
 document.getElementById("rollthedice").addEventListener("click", rollTheDice);
 
 //Question section.
 let answerBtn = document.getElementById('answerBtn');
-let answer = document.getElementsByName('answer');
+let answer = null;
+
 
 //Players.
 let playerOne = document.getElementById('playerOne');
@@ -27,19 +28,22 @@ playerTwoTurn = 0;
 let playerOneMoves = 0
 let playerTwoMoves = 0
 
+//generates a random number for the question.
+let questionNumber = null;
+
 //Board layout. (Hver tal over 0 generer en div med farve.)
 let map = [
             3,3,3,3,3,3,3,3,3,3,
-            2,0,0,6,0,6,0,0,0,4,
             2,0,0,0,0,0,0,0,0,4,
-            2,6,0,0,0,0,0,0,0,4,
-            2,0,0,0,0,0,0,0,6,4,
             2,0,0,0,0,0,0,0,0,4,
-            2,6,0,0,0,0,0,0,6,4,
-            2,0,6,0,0,6,0,0,0,4,
+            2,0,0,0,0,0,0,0,0,4,
+            2,0,0,0,0,0,0,0,0,4,
+            2,0,0,0,0,0,0,0,0,4,
+            2,0,0,0,0,0,0,0,0,4,
+            2,0,0,0,0,0,0,0,0,4,
             1,1,1,1,1,1,1,1,1,1];
 /**
- * Funktion til at hente tilfÃ¦ldigt nummer
+ * Funktion til at hente tilfældigt nummer
  * @param num_eyes
  * @returns {number}
  */
@@ -54,7 +58,7 @@ function initGame() {
     array_dices = [];
     gameboard.innerHTML = "";
 
-    //Bygger array med terninger - hver terning fÃ¥r et tilfÃ¦ldigt nummer
+    //Bygger array med terninger - hver terning får et tilfældigt nummer
     for(let i = 1; i <= num_dices; i++) {
         array_dices.push(getRandomNumber());        
     }
@@ -71,7 +75,7 @@ function rollTheDice() {
     for(let num of array_dices) {
         // Opretter <i> element til font awesome ikon
         let elm = document.createElement("i");
-        // TilfÃ¸jer class attribute med font awesome klasser til element
+        // Tilføjer class attribute med font awesome klasser til element
         elm.setAttribute("class", "dice fas fa-dice-" + array_dice_names[num]);
         gameboard.appendChild(elm);
 
@@ -241,30 +245,32 @@ function drop(ev) {
         }
         
     if(ev.target.classList[2] == "question") {
-        let questionNumber = Math.floor(Math.random(0, ) * 6);
-        document.body.insertAdjacentHTML("afterbegin", `<div id="qustion-box" class="qustion-box"><h2>${questions[questionNumber].question}</h2><input type="radio" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></div>`);
+        questionNumber = Math.floor(Math.random(0, ) * 6);
+        document.body.insertAdjacentHTML("afterbegin", `<form id="qustion-box" class="qustion-box"><h2>${questions[questionNumber].question}</h2><input type="radio" class="answer" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" class="answer"name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" class="answer" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></form>`);
         answerBtn = document.getElementById('answerBtn');
         answer = document.getElementsByName('answer');
 
     }
 }
 
+
 //This is the function that checks if the answer to one of the questions is right. (Virker ikke helt endnu)(Der kommer kommentare når den virker)
 function answerFunc() {
+    answer = document.forms[0];
     for (let i = 0; i < answer.length; i++) {
-        if(answer[i].checked ) {
-            if (questions[questionNumber].answer == answer[i].value) {
+            if (answer[i].checked) {
+                if (questions[questionNumber].answer === answer[i].value) {
+                    
                 playArea.classList = " playArea green-border";
-
-                document.getElementById("qustion-box").remove();
                 document.getElementById('rightOrWrong').innerHTML = "Rigtig! Slå igen og ryk frem."
+                document.getElementById("qustion-box").remove();
+            } else {
+                console.error("%cWRONG NOOB", 'color: blue; font-family: cursive; font-size: 5em;');
+                
+                playArea.classList = "playArea red-border";
+                document.getElementById('rightOrWrong').innerHTML = "Forkert! Vent til det er din tur."
+                document.getElementById("qustion-box").remove();
             }
-        } else {
-            playArea.classList = "playArea red-border";
-
-            document.getElementById('rightOrWrong').innerHTML = "Forkert! Vent til det er din tur."
-            document.getElementById("qustion-box").remove();
-
         }
     }
 }
@@ -283,8 +289,13 @@ function tileArray() {
 
 
 //This is used to decides which fields is a question field.
+tileArray()[0].style.backgroundImage = "url(images/start.jpg)";
+tileArray()[0].style.backgroundSize = "cover";
 tileArray()[2].classList += " question";
 tileArray()[5].classList += " question";
 tileArray()[12].classList += " question";
 tileArray()[15].classList += " question";
 tileArray()[20].classList += " question";
+tileArray()[24].classList += " question";
+tileArray()[28].classList += " question";
+tileArray()[31].classList += " question";
