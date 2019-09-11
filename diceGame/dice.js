@@ -100,14 +100,16 @@ function drag(ev) {
 
 }
 
-let qustion = [quistion1 = {type:"Fiat", model:"500", color:"white"}];
+// questions = { "question":"Hvordan starter et HTML dokument?","svar1":"<!DOCTYPE html>","svar2":"<!doctype>","svar3":"<Head>"}
+questions = { "question":"Hvordan starter et HTML dokument?", "svar1":'&lt;!DOCTYPE html&gt;', "svar2":'&lt;Head&gt;', "svar3":"&lt;body&gt;"};
 function drop(ev) {
     ev.preventDefault();
     let data = ev.dataTransfer.getData("text");
     ev.target.appendChild(document.getElementById(data));
 
     if(ev.target.classList == "qustion") {
-        alert("test");
-        document.body.insertAdjacentHTML("afterbegin", '<div class="qustion-box">Spørgsmål:'+  +'</div>');
+        document.body.insertAdjacentHTML("afterbegin", '<div class="qustion-box"><h2>'+questions.question+'</h2><input type="radio" value="1">'+questions.svar1+'</input><input type="radio" value="2">'+questions.svar2+'</input><input type="radio" value="3">'+questions.svar3+'</input></div>');
+        console.dir(questions.svarone);
+        
     }
 }
