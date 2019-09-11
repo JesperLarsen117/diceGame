@@ -11,17 +11,23 @@ let display_result = document.getElementById("display_result");
 // SÃ¦tter addEventListener til klik pÃ¥ knap
 document.getElementById("rollthedice").addEventListener("click", rollTheDice);
 
+//Question section.
 let answerBtn = document.getElementById('answerBtn');
 let answer = document.getElementsByName('answer');
 
+//Players.
 let playerOne = document.getElementById('playerOne');
+let playerTwo = document.getElementById('playerTwo');
 
+//which Turn to play.
 playerOneTurn = 1;
 playerTwoTurn = 0;
 
+//Count moves.
 let playerOneMoves = 0
 let playerTwoMoves = 0
 
+//Board layout. (Hver tal over 0 generer en div med farve.)
 let map = [
             3,3,3,3,3,3,3,3,3,3,
             2,0,0,6,0,6,0,0,0,4,
@@ -73,87 +79,113 @@ function rollTheDice() {
 
     }
     
+
+    //Switch between player. (if the playerOneTurn = 1 then is is player one's turn.) then resets the playerOnevar
     if (playerOneTurn == 1) {
+        // increases player one's moves  count.
         playerOneMoves += Number(array_dices);
+        // resets player one's turn.
         playerOneTurn = 0;
+        // Sets the turn to player two.
         playerTwoTurn = 1;
+    //Switch between player. (if the playerTwoTurn = 1 then is is player one's turn.)
     } else if(playerTwoTurn == 1) {
+        // increases player two's moves  count.
         playerTwoMoves += Number(array_dices);
+        // resets player two's turn.
         playerTwoTurn = 0;
+        // Sets the turn to player one.
         playerOneTurn = 1;
     }
-    
-    console.log(playerOneMoves);
-    console.log(playerTwoMoves);
+
+    //For loop that recognise whitch turn it is (Sætter en border omkring det felt spilleren skal rykke til) 
     for (let i = 0; i < tileArray().length; i++) {
         tileArray()[i].style.border = "2px solid rgba(0, 0, 0, 0.185)";
         if (playerOneTurn == 1) {
-            if (playerOneMoves >= tileArray().length) {
-                
-                playerOneMoves = tileArray().length - parseInt(playerOneMoves) + parseInt(array_dices);
+            if (playerOneMoves >= tileArray().length -1) {
+                playerOneMoves = 0;
+                //!!Skal måske bruges senere!!
+                // playerOneMoves = tileArray().length - parseInt(playerOneMoves) + parseInt(array_dices);
                 
                 } else {
+                    //applies border.
                     tileArray()[playerTwoMoves].style.border = "5px solid blue";
                 }
             }
-
+            console.log(tileArray().length -1);
+            
         if (playerTwoTurn == 1) {
             if (playerTwoMoves >= tileArray().length) {
-                
-                playerTwoMoves = tileArray().length - parseInt(playerTwoMoves) + parseInt(array_dices);
+                playerTwoMoves = 0;
+                //!!Skal måske bruges senere!!
+                // playerTwoMoves = tileArray().length - parseInt(playerTwoMoves) + parseInt(array_dices);
                 
                 } else {
+                    //applies border.
                     tileArray()[playerOneMoves].style.border = "5px solid black";
                 }
             }
     }
 }
 
-
-// Kaster terningerne nÃ¥r siden loades
-
 let playArea = document.getElementById("playArea")
-// 0 = redblock
-// 1 = greenblocks
-// 2 = qustion
-// 3 = ladder
+//The numbers mening, in the map variable.
+// 0 = Non moveable area.
+// 1 = Moveable area.
+// 2 = Moveable area.
+// 3 = Moveable area.
+// 4 = Moveable area.
+// 6 = Question field.
 
+
+//Generates the map, by looking at the number in the map variable.
 for (let i = 0; i < map.length; i++) {
+    //If the number in the map variable is 0 insert a div with the class black.
     if(map[i] == 0) {
         playArea.insertAdjacentHTML("afterbegin", '<div class=" block"></div>');
     } else 
+    //If the number in the map variable is 1 insert a div with the class greenBlock.
     if(map[i] == 1) {
         playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlock"></div>');
     } else 
+    //If the number in the map variable is 2 insert a div with the class greenBlockTwo.
     if(map[i] == 2) {
         playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlockTwo"></div>');
     } else 
+        //If the number in the map variable is 3 insert a div with the class greenBlockThree.
     if(map[i] == 3) {
         playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlockThree"></div>');
     }
+        //If the number in the map variable is 4 insert a div with the class greenBlockFour.
     if(map[i] == 4) {
         playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlockFour"></div>');
     }
+        //If the number in the map variable is 6 insert a div with the class qustion.
     if(map[i] == 6) {
         playArea.insertAdjacentHTML("afterbegin", '<div class="qustion"></div>');
     }
 }
+
+//This function allows an element to be draged and placed in a div.
 function allowDop(ev) { 
     ev.preventDefault();
 }
 
+//This function allows an element to be draged.
 function drag(ev) {
     let data = ev.dataTransfer.setData("text", ev.target.id);
 
 }
 
+//array of questions.
 let questions = [
     {
       question: "Hvordan start man et html document?",
       answer1: "&lt;!DOCTYPE html&gt;",
       answer2: "&lt;html !DOCTYPE&gt;",
       answer3: "&lt;html&gt;",
-      answer: "answer1"
+      answer: "answer1",
+      price: 200
     },
     {
         question: "Hvordan laver man en variable i javascript?",
@@ -185,8 +217,11 @@ let questions = [
     }
     
   ];
+
+  //This function checks with have been draged to an element, to get information that is used to check player moves.
 function drop(ev) {
     playArea.classList = "playArea"; 
+        //This is to check if an element have the notStackable class on it (this is used on the player. So that when a player is draged on top of the other player, the other player returns to home.)
         if (ev.target.classList[1] == "notStackable") {
             let greenBlock = document.getElementsByClassName("greenBlock");
                 let data = ev.dataTransfer.getData("text");
@@ -214,6 +249,7 @@ function drop(ev) {
     }
 }
 
+//This is the function that checks if the answer to one of the questions is right. (Virker ikke helt endnu)(Der kommer kommentare når den virker)
 function answerFunc() {
     for (let i = 0; i < answer.length; i++) {
         if(answer[i].checked ) {
@@ -233,6 +269,7 @@ function answerFunc() {
     }
 }
 
+//This fucntion assembles all the playable objects into an array, and returns the array.
 function tileArray() {
     let greenBlock = Array.from(document.getElementsByClassName('greenBlock'));
     let greenBlockTwo = Array.from(document.getElementsByClassName('greenBlockTwo'));
@@ -244,6 +281,8 @@ function tileArray() {
 }
 // console.log(tileArray());
 
+
+//This is used to decides which fields is a question field.
 tileArray()[2].classList += " question";
 tileArray()[5].classList += " question";
 tileArray()[12].classList += " question";
