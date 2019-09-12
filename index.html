@@ -12,16 +12,32 @@
 
 <body>
 
-    <div class="playArea" id="playArea">
-        <section class="dice-holder">
-            <div id="gameboard"></div>
-            <div id="display_result"></div>
-            <button type="button" id="rollthedice">Roll</button>
-        </section>
-        <div class="player notStackable" id="playerOne" draggable="true" ondragstart="drag(event)"><i class="fas notStackable fa-ghost"></i></div>
-        <div class="player notStackable" id="playerTwo" draggable="true" ondragstart="drag(event)"><i class="fas notStackable fa-chess-queen"></i></div>
+<div class="playArea" id="playArea">
+    <section class="dice-holder">
+        <div id="gameboard"></div>
+        <div id="display_result"></div>
+        <button type="button" id="rollthedice">Roll</button>
+    </section>
+    <div class="card-box" id="card-box">
+            <div class="card-static">
+                <div class="front">
+                </div>
+                <div class="back">
+                </div>
+            </div>
     </div>
-    <span id="rightOrWrong"></span>
+    <!-- <div class="card-box">
+        <div class="card">
+            <div class="front">
+            </div>
+            <div class="back">
+            </div>
+        </div>
+    </div> -->
+</div>
+<div class="player notStackable" id="playerOne" draggable="true" ondragstart="drag(event)"><i class="fas notStackable fa-ghost"></i></div>
+<div class="player notStackable" id="playerTwo" draggable="true" ondragstart="drag(event)"><i class="fas notStackable fa-chess-queen"></i></div>
+<span id="rightOrWrong"></span>
 
     <script src="https://kit.fontawesome.com/4a0535102f.js"></script>
     <script src="dice.js"></script>

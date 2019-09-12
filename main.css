@@ -11,11 +11,16 @@ i {
 }
 
 body {
-    width: 100vw;
+    background-image: url(images/background.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.block {
+    background-color: #db6565;
 }
 
 .dice-holder {
-    width: 20%;
+    width: 40%;
     margin: 0 auto;
 }
 
@@ -25,40 +30,53 @@ body {
     grid-template-columns: repeat(10, 1fr);
     width: 45%;
     margin: 0 auto;
+    box-shadow:  0 0 30px 15px rgba(0, 0, 0, 0.2);
+}
+.dice{
+    color: white;
 }
 
 .greenBlock {
     width: 100%;
     height: 80px;
-    background-color: #39d668;
+    /* background-color: #39d668; */
+    background-image: url(images/7e884645c30fa18498a520edc82923ea.jpg);
+    background-size: cover;
     border: 2px solid rgba(0, 0, 0, 0.185);
 }
 
 .greenBlockTwo {
     width: 100%;
     height: 80px;
-    background-color: #39d668;
+    background-image: url(images/7e884645c30fa18498a520edc82923ea.jpg);
+    background-size: cover;
+    /* background-color: #39d668; */
     border: 2px solid rgba(0, 0, 0, 0.185);
 }
 
 .greenBlockThree {
     width: 100%;
     height: 80px;
-    background-color: #39d668;
+    background-image: url(images/7e884645c30fa18498a520edc82923ea.jpg);
+    background-size: cover;
+    /* background-color: #39d668; */
     border: 2px solid rgba(0, 0, 0, 0.185);
 }
 
 .greenBlockFour {
     width: 100%;
     height: 80px;
-    background-color: #39d668;
+    background-image: url(images/7e884645c30fa18498a520edc82923ea.jpg);
+    background-size: cover;
+    /* background-color: #39d668; */
     border: 2px solid rgba(0, 0, 0, 0.185);
 }
 
 .question {
     width: 100%;
     height: 80px;
-    background-color: rgb(185, 40, 173) !important;
+    background-image: url(images/question.jpg) !important;
+    background-size: cover;
     border: 2px solid rgba(0, 0, 0, 0.185);
 }
 
@@ -146,7 +164,7 @@ h2 {
     position: absolute;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    top: 50%;
+    bottom: 8em;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -154,15 +172,70 @@ h2 {
 .dice {
     animation: rollDicetest 1s cubic-bezier(0, 0.11, 0.25, 0.98) forwards;
 }
-
+.card-box {
+    perspective: 1000;
+    width: 100px;
+    height: 140px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}  
+.card {
+    transform-style: preserve-3d;
+    position: relative;
+    animation: card 2s ease-in-out forwards;
+    transform-origin: 50%  70px;
+}
+.front {
+    z-index: 2;
+    transform: rotateY(0deg);
+    width: 100px;
+    height: 140px;
+    border-radius: 2px;
+    backface-visibility: hidden;
+    background: linear-gradient(135deg, #bd6772, #53223f);
+    position: absolute;
+    color: #fff;
+    font-family: Inconsolata;
+    top: 0;
+    left: 0;
+}
+.back {
+    transform: rotateY(180deg);
+    width: 100px;
+    height: 140px;
+    border-radius: 2px;
+    backface-visibility: hidden;
+    background: #bd6772;
+    position: absolute;
+    color: #fff;
+    font-family: Inconsolata;
+    top: 0;
+    left: 0;
+}
+#card {
+    z-index: 100;
+}
 #rollthedice {
     background-color: #4173cf;
+    min-height: 90px;
     color: white;
     padding: 1em 2em;
     border: unset;
     cursor: pointer;
 }
-
+@keyframes card{
+    20% {
+        transform: rotateY(0) scale(1);
+    }
+    60% {
+        transform: rotateY(0) scale(2.5);
+    }
+    100% {
+        transform: rotateY(180deg) scale(2.5);
+    }
+}
 @keyframes redBorder {
     0% {
         border: 5px solid red;
@@ -233,45 +306,3 @@ h2 {
 }
 
 
-/* MEDIA QUERIES 1600px */
-
-@media screen and (max-width: 1600px) {
-    .playArea {
-        width: 60%;
-    }
-    @keyframes rollDicetest {
-        0% {
-            transform: translate(-300px, -150px) rotate(0);
-        }
-        10% {
-            transform: translate(-250px, -100px) rotate(40deg);
-        }
-        20% {
-            transform: translate(-200px, -80px) rotate(120deg);
-        }
-        30% {
-            transform: translate(-150px, -50px) rotate(180deg);
-        }
-        40% {
-            transform: translate(-100px, -25px)rotate(200deg);
-        }
-        50% {
-            transform: translate(-50px, 0) rotate(220deg);
-        }
-        60% {
-            transform: translate(0px, -20px)rotate(280deg);
-        }
-        70% {
-            transform: translate(5px, -10px) rotate(290deg);
-        }
-        80% {
-            transform: translate(10px, 0)rotate(340deg);
-        }
-        90% {
-            transform: translate(15px, -5px) rotate(380deg);
-        }
-        100% {
-            transform: translate(20px, 0)rotate(450deg);
-        }
-    }
-}
