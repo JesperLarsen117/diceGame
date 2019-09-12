@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-
 <div class="playArea" id="playArea">
     <section class="dice-holder">
         <div id="gameboard"></div>
         <div id="display_result"></div>
         <button type="button" id="rollthedice">Roll</button>
     </section>
+    <button type="button" id="rulesBtn">Rules</button>
     <div class="card-box" id="card-box">
             <div class="card-static">
                 <div class="front">
@@ -33,10 +33,31 @@
         </div>
     </div> -->
 </div>
+<div id="rules" class="rules">
+        <div class="rules-content">
+                <span class="close">&times;</span>
+                <p>
+                    <h2>RULES</h2> <br>
+                    <h4>Each player roll the dice and move their character along the green spaces, according to the number of eyes shown on the dice. <br>
+                        If a player lands on a purple space they're given a question and 3 possible answers. If the player picks the right answer, they get to roll the dice again. If not, the turn switches to the next player. <br>
+                        If a player manages to land on the blue space, they are allowed to skip all the way down to the second blue space. <br>
+                        The winner is the player who first reaches the ending space. <br> <br>
+                        Have fun playing!
+                    </h4>
+
+
+
+                </p>
+              </div>
+            
+</div>
 <div class="player notStackable" id="playerOne" draggable="true" ondragstart="drag(event)"><i class="fas notStackable fa-ghost"></i></div>
 <div class="player notStackable" id="playerTwo" draggable="true" ondragstart="drag(event)"><i class="fas notStackable fa-chess-queen"></i></div>
 <span id="rightOrWrong"></span>
-
+<div class="player-section">
+        <p id="playerOneScore">Player 1</p>
+        <p id="playerTwoScore">Player 2</p>
+    </div>
 <script src="https://kit.fontawesome.com/4a0535102f.js"></script>
 <script src="dice.js"></script>
 </body>

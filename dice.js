@@ -19,6 +19,10 @@ let answer = null;
 let playerOne = document.getElementById('playerOne');
 let playerTwo = document.getElementById('playerTwo');
 
+//Player score p tags
+let PlayerOneText = document.getElementById('playerOneScore');
+let PlayerTwoText = document.getElementById('playerTwoScore');
+
 //Player Money.
 let playerOneScore = 0;
 let playerTwoScore = 0;
@@ -90,7 +94,6 @@ function rollTheDice() {
 
     }
     
-
     //Switch between player. (if the playerOneTurn = 1 then is is player one's turn.) then resets the playerOnevar
     if (playerOneTurn == 1) {
         // increases player one's moves  count.
@@ -323,7 +326,7 @@ function drop(ev) {
         questionNumber = Math.floor(Math.random(0) * 14);
         console.log(questionNumber);
         
-        cardBox.insertAdjacentHTML("afterbegin", `<form id="card" class="card-box"><div class="card"><div class="front"></div><div class="back"><h2>${questions[questionNumber].question}</h2><input type="radio" class="answer" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" class="answer"name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" class="answer" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></div></div></form>`);
+        cardBox.insertAdjacentHTML("afterbegin", `<form id="card" class="qustion-box card-box"><div class="card"><div class="front"></div><div class="back"><h2>${questions[questionNumber].question}</h2><input type="radio" class="answer" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" class="answer"name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" class="answer" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></div></div></form>`);
         // cardBox.insertAdjacentHTML("afterbegin", `<form id="qustion-box" class="qustion-box"><h2>${questions[questionNumber].question}</h2><input type="radio" class="answer" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" class="answer"name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" class="answer" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></form>`);
         answerBtn = document.getElementById('answerBtn');
         answer = document.getElementsByName('answer');
@@ -346,9 +349,14 @@ function answerFunc() {
                 if (playerOneTurn == 1) {
                     playerTwoScore += parseInt(questions[questionNumber].price);
                     console.log('Player 2: ' + playerTwoScore);
+
+                    PlayerTwoText.innerText = 'Player 2: ' +  playerTwoScore;
                 } else if(playerTwoTurn == 1) {
                     playerOneScore += parseInt(questions[questionNumber].price);
                     console.log('Player 1: ' + playerOneScore);
+                    
+                    PlayerOneText.innerText = 'Player 1: ' +  playerOneScore;
+
                 }
                 setTimeout(() => {
                     let winning = document.getElementById('winning');
@@ -363,7 +371,7 @@ function answerFunc() {
                 setTimeout(() => {
                     let winning = document.getElementById('wrong');
                     winning.remove();
-                }, 1000);
+                }, 2000);
             }
         }
     }
@@ -425,4 +433,20 @@ function playerBorder() {
     console.log((parseInt(playerOneMoves) >= parseInt(tileArray().length)));
     
     console.log(playerOneMoves);
+}
+
+//Rules button
+
+var modal = document.getElementById("rules");
+
+var btn = document.getElementById("rulesBtn");
+
+var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
 }
