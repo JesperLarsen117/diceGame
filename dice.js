@@ -10,7 +10,6 @@ let array_dice_names = ["", "one", "two", "three", "four", "five", "six"];
 let display_result = document.getElementById("display_result");
 // Sætter addEventListener til klik på knap
 document.getElementById("rollthedice").addEventListener("click", rollTheDice);
-
 //Question section.
 let answerBtn = document.getElementById('answerBtn');
 let answer = null;
@@ -19,6 +18,9 @@ let answer = null;
 //Players.
 let playerOne = document.getElementById('playerOne');
 let playerTwo = document.getElementById('playerTwo');
+
+let cardBox = document.getElementById('card-box');
+
 
 //which Turn to play.
 playerOneTurn = 1;
@@ -246,7 +248,8 @@ function drop(ev) {
         
     if(ev.target.classList[2] == "question") {
         questionNumber = Math.floor(Math.random(0, ) * 6);
-        document.body.insertAdjacentHTML("afterbegin", `<form id="qustion-box" class="qustion-box"><h2>${questions[questionNumber].question}</h2><input type="radio" class="answer" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" class="answer"name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" class="answer" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></form>`);
+        cardBox.insertAdjacentHTML("afterbegin", `<form id="card" class="card-box"><div class="card"><div class="front"><div class="back"><h2>${questions[questionNumber].question}</h2><input type="radio" class="answer" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" class="answer"name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" class="answer" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></div></div></form>`);
+        // cardBox.insertAdjacentHTML("afterbegin", `<form id="qustion-box" class="qustion-box"><h2>${questions[questionNumber].question}</h2><input type="radio" class="answer" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" class="answer"name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" class="answer" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></form>`);
         answerBtn = document.getElementById('answerBtn');
         answer = document.getElementsByName('answer');
 
@@ -285,7 +288,10 @@ function tileArray() {
 
     return tileArr;
 }
-// console.log(tileArray());
+
+//Set player's to the right position on start.
+tileArray()[0].appendChild(playerOne);
+tileArray()[0].appendChild(playerTwo);
 
 
 //This is used to decides which fields is a question field.

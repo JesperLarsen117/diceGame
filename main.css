@@ -148,19 +148,76 @@ background: blue;
     position: absolute;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    top: 50%;
+    bottom: 8em;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 .dice {
     animation: rollDicetest 1s cubic-bezier(0, 0.11, 0.25, 0.98) forwards;
 }
+.card-box {
+    perspective: 1000;
+    width: 100px;
+    height: 140px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}  
+.card {
+    transform-style: preserve-3d;
+    position: relative;
+    animation: card 2s ease-in-out forwards;
+    transform-origin: 50%  70px;
+}
+.front {
+    z-index: 2;
+    transform: rotateY(0deg);
+    width: 100px;
+    height: 140px;
+    border-radius: 2px;
+    backface-visibility: hidden;
+    background: linear-gradient(135deg, #bd6772, #53223f);
+    position: absolute;
+    color: #fff;
+    font-family: Inconsolata;
+    top: 0;
+    left: 0;
+}
+.back {
+    transform: rotateY(180deg);
+    width: 100px;
+    height: 140px;
+    border-radius: 2px;
+    backface-visibility: hidden;
+    background: #bd6772;
+    position: absolute;
+    color: #fff;
+    font-family: Inconsolata;
+    top: 0;
+    left: 0;
+}
+#card {
+    z-index: 100;
+}
 #rollthedice {
     background-color: #4173cf;
+    min-height: 90px;
     color: white;
     padding: 1em 2em;
     border: unset;
     cursor: pointer;
+}
+@keyframes card{
+    20% {
+        transform: rotateY(0) scale(1);
+    }
+    60% {
+        transform: rotateY(0) scale(2.5);
+    }
+    100% {
+        transform: rotateY(180deg) scale(2.5);
+    }
 }
 @keyframes redBorder {
     0% {
@@ -225,3 +282,5 @@ background: blue;
         transform: translate(50px, 0)rotate(450deg);
     }
 }
+
+
