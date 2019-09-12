@@ -238,6 +238,25 @@ let questions = [{
         price: 200
 
     },
+    {
+        question: "Hvilket tegn bruges foran dit class navn i css?",
+        answer1: ',',
+        answer2: '#',
+        answer3: '.',
+        answer: "answer3",
+        price: 100
+
+    },
+
+    {
+        question: "Hvilket tegn bruges foran dit id navn i css?",
+        answer1: ',',
+        answer2: '#',
+        answer3: '.',
+        answer: "answer2",
+        price: 100
+
+    },
 
 
 ];
