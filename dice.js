@@ -1,5 +1,5 @@
 // Dice timer.
-let diceTimer; 
+let diceTimer;
 // Sætter antal af terninger
 let num_dices = 1;
 // Array til terninger
@@ -44,15 +44,15 @@ let questionNumber = null;
 
 //Board layout. (Hver tal over 0 generer en div med farve.)
 let map = [
-            3,3,3,3,3,3,3,3,3,3,
-            2,0,0,0,0,0,0,0,0,4,
-            2,0,0,0,0,0,0,0,0,4,
-            2,0,0,0,0,0,0,0,0,4,
-            2,0,0,0,0,0,0,0,0,4,
-            2,0,0,0,0,0,0,0,0,4,
-            2,0,0,0,0,0,0,0,0,4,
-            2,0,0,0,0,0,0,0,0,4,
-            1,1,1,1,1,1,1,1,1,1];
+    3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+    2, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+    2, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+    2, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+    2, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+    2, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+    2, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+    2, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 /**
  * Funktion til at hente tilfældigt nummer
  * @param num_eyes
@@ -70,8 +70,8 @@ function initGame() {
     gameboard.innerHTML = "";
 
     //Bygger array med terninger - hver terning får et tilfældigt nummer
-    for(let i = 1; i <= num_dices; i++) {
-        array_dices.push(getRandomNumber());        
+    for (let i = 1; i <= num_dices; i++) {
+        array_dices.push(getRandomNumber());
     }
 }
 
@@ -83,7 +83,7 @@ function rollTheDice() {
     // Nulstiller spil
     initGame();
     // Lopper array
-    for(let num of array_dices) {
+    for (let num of array_dices) {
         // Opretter <i> element til font awesome ikon
         let elm = document.createElement("i");
         // Tilføjer class attribute med font awesome klasser til element
@@ -93,7 +93,7 @@ function rollTheDice() {
         // console.log(currentPosition.parentElement);
 
     }
-    
+
     //Switch between player. (if the playerOneTurn = 1 then is is player one's turn.) then resets the playerOnevar
     if (playerOneTurn == 1) {
         // increases player one's moves  count.
@@ -102,17 +102,87 @@ function rollTheDice() {
         playerOneTurn = 0;
         // Sets the turn to player two.
         playerTwoTurn = 1;
-    //Switch between player. (if the playerTwoTurn = 1 then is is player one's turn.)
-    } else if(playerTwoTurn == 1) {
+        if (playerOneTurn == 1) {
+            playerOneMoves = 0;
+            if (parseInt(playerOneMoves) >= 33) {
+                //!!Skal måske bruges senere!!
+                if (parseInt(playerOneMoves) <= 0) {
+                    tileArray()[playerTwoMoves].style.border = "5px solid black";
+                }
+
+            } else {
+                //applies border.
+            }
+        }
+        if (playerTwoTurn == 1) {
+            if (parseInt(playerTwoMoves) >= 33) {
+                //!!Skal måske bruges senere!!
+                playerTwoMoves = 0;
+                if (parseInt(playerTwoMoves) <= 0) {
+                    tileArray()[playerTwoMoves].style.border = "5px solid black";
+
+                }
+            } else {
+                //applies border.
+            }
+        }
+        //Switch between player. (if the playerTwoTurn = 1 then is is player one's turn.)
+    } else if (playerTwoTurn == 1) {
         // increases player two's moves  count.
         playerTwoMoves += Number(array_dices);
         // resets player two's turn.
         playerTwoTurn = 0;
         // Sets the turn to player one.
         playerOneTurn = 1;
+        if (playerOneTurn == 1) {
+            if (parseInt(playerOneMoves) >= 33) {
+                //!!Skal måske bruges senere!!
+                playerOneMoves = 0;
+            } else {
+                //applies border.
+            }
+        }
+        if (playerTwoTurn == 1) {
+            if (parseInt(playerTwoMoves) >= 33) {
+                //!!Skal måske bruges senere!!
+                playerTwoMoves = 0;
+
+            } else {
+                //applies border.
+            }
+        }
     }
 
-    playerBorder();
+    //For loop that recognise whitch turn it is (Sætter en border omkring det felt spilleren skal rykke til) 
+    for (let i = 0; i < tileArray().length; i++) {
+        tileArray()[i].style.border = "2px solid rgba(0, 0, 0, 0.185)";
+    }
+    if (playerOneTurn == 1) {
+        if (parseInt(playerTwoMoves) >= 33) {
+            //!!Skal måske bruges senere!!
+            playerTwoMoves = 0;
+            if (parseInt(playerTwoMoves) <= 0) {
+                tileArray()[playerTwoMoves].style.border = "5px solid black";
+
+            }
+        } else {
+            //applies border.
+            tileArray()[playerTwoMoves].style.border = "5px solid blue";
+        }
+    }
+    if (playerTwoTurn == 1) {
+        if (parseInt(playerOneMoves) >= 33) {
+            //!!Skal måske bruges senere!!
+            playerTwoMoves = 0;
+            if (parseInt(playerOneMoves) <= 0) {
+                tileArray()[playerTwoMoves].style.border = "5px solid black";
+            }
+        } else {
+            //applies border.
+            tileArray()[playerOneMoves].style.border = "5px solid black";
+        }
+    }
+
 }
 
 let playArea = document.getElementById("playArea")
@@ -128,33 +198,33 @@ let playArea = document.getElementById("playArea")
 //Generates the map, by looking at the number in the map variable.
 for (let i = 0; i < map.length; i++) {
     //If the number in the map variable is 0 insert a div with the class black.
-    if(map[i] == 0) {
+    if (map[i] == 0) {
         playArea.insertAdjacentHTML("afterbegin", '<div class=" block"></div>');
-    } else 
-    //If the number in the map variable is 1 insert a div with the class greenBlock.
-    if(map[i] == 1) {
-        playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlock"></div>');
-    } else 
-    //If the number in the map variable is 2 insert a div with the class greenBlockTwo.
-    if(map[i] == 2) {
-        playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlockTwo"></div>');
-    } else 
-        //If the number in the map variable is 3 insert a div with the class greenBlockThree.
-    if(map[i] == 3) {
-        playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlockThree"></div>');
-    }
-        //If the number in the map variable is 4 insert a div with the class greenBlockFour.
-    if(map[i] == 4) {
+    } else
+        //If the number in the map variable is 1 insert a div with the class greenBlock.
+        if (map[i] == 1) {
+            playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlock"></div>');
+        } else
+            //If the number in the map variable is 2 insert a div with the class greenBlockTwo.
+            if (map[i] == 2) {
+                playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlockTwo"></div>');
+            } else
+                //If the number in the map variable is 3 insert a div with the class greenBlockThree.
+                if (map[i] == 3) {
+                    playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlockThree"></div>');
+                }
+    //If the number in the map variable is 4 insert a div with the class greenBlockFour.
+    if (map[i] == 4) {
         playArea.insertAdjacentHTML("afterbegin", '<div ondrop="drop(event)" data-blockId="playAbleArea" ondragover="allowDop(event)" class="playAbleArea greenBlockFour"></div>');
     }
-        //If the number in the map variable is 6 insert a div with the class qustion.
-    if(map[i] == 6) {
+    //If the number in the map variable is 6 insert a div with the class qustion.
+    if (map[i] == 6) {
         playArea.insertAdjacentHTML("afterbegin", '<div class="qustion"></div>');
     }
 }
 
 //This function allows an element to be draged and placed in a div.
-function allowDop(ev) { 
+function allowDop(ev) {
     ev.preventDefault();
 }
 
@@ -301,31 +371,31 @@ let questions = [
     }
 ];
 
-  //This function checks with have been draged to an element, to get information that is used to check player moves.
+//This function checks with have been draged to an element, to get information that is used to check player moves.
 function drop(ev) {
-    playArea.classList = "playArea"; 
-        //This is to check if an element have the notStackable class on it (this is used on the player. So that when a player is draged on top of the other player, the other player returns to home.)
-        if (ev.target.classList[1] == "notStackable") {
-            let greenBlock = document.getElementsByClassName("greenBlock");
-                let data = ev.dataTransfer.getData("text");
-                ev.target.parentElement.parentElement.appendChild(document.getElementById(data));
-                greenBlock[0].appendChild(ev.target.parentElement);
-                if (ev.target.parentElement.id === "playerOne") {
-                    playerOneMoves = 0;
-                }
-                if (ev.target.parentElement.id === "playerTwo") {
-                    playerTwoMoves = 0;
-                }
-        } else {
-            ev.preventDefault();
-            let data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
+    playArea.classList = "playArea";
+    //This is to check if an element have the notStackable class on it (this is used on the player. So that when a player is draged on top of the other player, the other player returns to home.)
+    if (ev.target.classList[1] == "notStackable") {
+        let greenBlock = document.getElementsByClassName("greenBlock");
+        let data = ev.dataTransfer.getData("text");
+        ev.target.parentElement.parentElement.appendChild(document.getElementById(data));
+        greenBlock[0].appendChild(ev.target.parentElement);
+        if (ev.target.parentElement.id === "playerOne") {
+            playerOneMoves = 0;
         }
-        
-    if(ev.target.classList[2] == "question") {
+        if (ev.target.parentElement.id === "playerTwo") {
+            playerTwoMoves = 0;
+        }
+    } else {
+        ev.preventDefault();
+        let data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+
+    if (ev.target.classList[2] == "question") {
         questionNumber = Math.floor(Math.random(0) * 14);
         console.log(questionNumber);
-        
+
         cardBox.insertAdjacentHTML("afterbegin", `<form id="card" class="qustion-box card-box"><div class="card"><div class="front"></div><div class="back"><h2>${questions[questionNumber].question}</h2><input type="radio" class="answer" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" class="answer"name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" class="answer" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></div></div></form>`);
         // cardBox.insertAdjacentHTML("afterbegin", `<form id="qustion-box" class="qustion-box"><h2>${questions[questionNumber].question}</h2><input type="radio" class="answer" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" class="answer"name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" class="answer" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></form>`);
         answerBtn = document.getElementById('answerBtn');
@@ -339,23 +409,23 @@ function drop(ev) {
 function answerFunc() {
     answer = document.forms[0];
     for (let i = 0; i < answer.length; i++) {
-            if (answer[i].checked) {
-                if (questions[questionNumber].answer === answer[i].value) {
+        if (answer[i].checked) {
+            if (questions[questionNumber].answer === answer[i].value) {
                 playArea.classList = " playArea green-border";
                 // document.getElementById('rightOrWrong').innerHTML = "Rigtig! Slå igen og ryk frem."
                 document.getElementById("card").remove();
-                document.body.insertAdjacentHTML('afterbegin','<img id="winning" src="images/wining.gif">');
+                document.body.insertAdjacentHTML('afterbegin', '<img id="winning" src="images/wining.gif">');
 
                 if (playerOneTurn == 1) {
                     playerTwoScore += parseInt(questions[questionNumber].price);
                     console.log('Player 2: ' + playerTwoScore);
 
-                    PlayerTwoText.innerText = 'Player 2: ' +  playerTwoScore;
-                } else if(playerTwoTurn == 1) {
+                    PlayerTwoText.innerText = 'Player 2: ' + playerTwoScore;
+                } else if (playerTwoTurn == 1) {
                     playerOneScore += parseInt(questions[questionNumber].price);
                     console.log('Player 1: ' + playerOneScore);
-                    
-                    PlayerOneText.innerText = 'Player 1: ' +  playerOneScore;
+
+                    PlayerOneText.innerText = 'Player 1: ' + playerOneScore;
 
                 }
                 setTimeout(() => {
@@ -367,7 +437,7 @@ function answerFunc() {
                 playArea.classList = "playArea red-border";
                 // document.getElementById('rightOrWrong').innerHTML = "Forkert! Vent til det er din tur."
                 document.getElementById("card").remove();
-                document.body.insertAdjacentHTML('afterbegin','<img id="wrong" src="images/giphy.gif">');
+                document.body.insertAdjacentHTML('afterbegin', '<img id="wrong" src="images/giphy.gif">');
                 setTimeout(() => {
                     let winning = document.getElementById('wrong');
                     winning.remove();
@@ -404,37 +474,6 @@ tileArray()[20].classList += " question";
 tileArray()[24].classList += " question";
 tileArray()[28].classList += " question";
 tileArray()[31].classList += " question";
-
-function playerBorder() {
-    //For loop that recognise whitch turn it is (Sætter en border omkring det felt spilleren skal rykke til) 
-    for (let i = 0; i < tileArray().length; i++) {
-        tileArray()[i].style.border = "2px solid rgba(0, 0, 0, 0.185)";
-        if (playerOneTurn == 1) {
-            if (parseInt(playerOneMoves) >= parseInt(tileArray().length)) {
-                //!!Skal måske bruges senere!!
-                playerOneMoves = 0;
-                
-                } else {
-                    //applies border.
-                    tileArray()[playerTwoMoves].style.border = "5px solid blue";
-                }
-            }
-        if (playerTwoTurn == 1) {
-            if (parseInt(playerTwoMoves) >= parseInt(tileArray().length)) {
-                //!!Skal måske bruges senere!!
-                playerTwoMoves = tileArray().length -1 - parseInt(playerTwoMoves) + parseInt(array_dices);
-                
-                } else {
-                    //applies border.
-                    tileArray()[playerOneMoves].style.border = "5px solid black";
-                }
-            }
-    }
-    console.log((parseInt(playerOneMoves) >= parseInt(tileArray().length)));
-    
-    console.log(playerOneMoves);
-}
-
 //Rules button
 
 var modal = document.getElementById("rules");
@@ -443,10 +482,10 @@ var btn = document.getElementById("rulesBtn");
 
 var span = document.getElementsByClassName("close")[0];
 
-btn.onclick = function() {
-  modal.style.display = "block";
+btn.onclick = function () {
+    modal.style.display = "block";
 }
 
-span.onclick = function() {
-  modal.style.display = "none";
+span.onclick = function () {
+    modal.style.display = "none";
 }
