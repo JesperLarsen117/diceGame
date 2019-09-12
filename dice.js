@@ -1,6 +1,6 @@
 // Dice timer.
-let diceTimer; 
-// Sætter antal af terninger
+let diceTimer;
+// SÃ¦tter antal af terninger
 let num_dices = 1;
 // Array til terninger
 let array_dices = [];
@@ -70,11 +70,12 @@ function initGame() {
  * Funktion til at kaste terninger med
  */
 let moves = null;
+
 function rollTheDice() {
     // Nulstiller spil
     initGame();
     // Lopper array
-    for(let num of array_dices) {
+    for (let num of array_dices) {
         // Opretter <i> element til font awesome ikon
         let elm = document.createElement("i");
         // Tilføjer class attribute med font awesome klasser til element
@@ -131,6 +132,7 @@ function rollTheDice() {
                     tileArray()[playerOneMoves].style.border = "5px solid black";
                 }
             }
+        }
     }
 }
 
@@ -198,21 +200,24 @@ let questions = [
         answer1: 'navn = "String"',
         answer2: 'let navn = "String"',
         answer3: 'let = "string"',
-        answer: "answer2"
+        answer: "answer2",
+        price: 100
     },
     {
         question: "Hvad står html for?",
         answer1: 'Hyper Tag Markup Language',
         answer2: 'Hyper Text Markup Language',
         answer3: 'Hyperlinking Text Marking Language',
-        answer: "answer2"
+        answer: "answer2",
+        price: 100
     },
     {
         question: "Hvad er det korrekte tag for en line break?",
         answer1: '&lt;line /&gt;',
         answer2: '&lt;brk /&gt;',
         answer3: '&lt;br /&gt;',
-        answer: "answer3"
+        answer: "answer3",
+        price: 100
     },
     {
         question: "Hvad står css for",
