@@ -257,6 +257,24 @@ let questions = [{
         price: 100
 
     },
+    {
+        question: "Hvor mange h1 tag er korrekt at bruge?",
+        answer1: '1',
+        answer2: '5',
+        answer3: 'bestemmer man selv',
+        answer: "answer1",
+        price: 100
+
+    },
+    {
+        question: "Hvad står SEO for?",
+        answer1: 'Search Optimization',
+        answer2: 'Search Engine Optimization',
+        answer3: 'Search Engine',
+        answer: "answer2",
+        price: 100
+
+    },
 
 
 ];
