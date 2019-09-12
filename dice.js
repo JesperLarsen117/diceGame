@@ -19,6 +19,11 @@ let answer = null;
 let playerOne = document.getElementById('playerOne');
 let playerTwo = document.getElementById('playerTwo');
 
+//Player Money.
+let playerOneScore = 0;
+let playerTwoScore = 0;
+
+
 let cardBox = document.getElementById('card-box');
 
 
@@ -104,34 +109,7 @@ function rollTheDice() {
         playerOneTurn = 1;
     }
 
-    //For loop that recognise whitch turn it is (Sætter en border omkring det felt spilleren skal rykke til) 
-    for (let i = 0; i < tileArray().length; i++) {
-        tileArray()[i].style.border = "2px solid rgba(0, 0, 0, 0.185)";
-        if (playerOneTurn == 1) {
-            if (playerOneMoves >= tileArray().length -1) {
-                playerOneMoves = 0;
-                //!!Skal måske bruges senere!!
-                // playerOneMoves = tileArray().length - parseInt(playerOneMoves) + parseInt(array_dices);
-                
-                } else {
-                    //applies border.
-                    tileArray()[playerTwoMoves].style.border = "5px solid blue";
-                }
-            }
-            console.log(tileArray().length -1);
-            
-        if (playerTwoTurn == 1) {
-            if (playerTwoMoves >= tileArray().length) {
-                playerTwoMoves = 0;
-                //!!Skal måske bruges senere!!
-                // playerTwoMoves = tileArray().length - parseInt(playerTwoMoves) + parseInt(array_dices);
-                
-                } else {
-                    //applies border.
-                    tileArray()[playerOneMoves].style.border = "5px solid black";
-                }
-            }
-    }
+    playerBorder();
 }
 
 let playArea = document.getElementById("playArea")
@@ -186,43 +164,139 @@ function drag(ev) {
 //array of questions.
 let questions = [
     {
-      question: "Hvordan start man et html document?",
-      answer1: "&lt;!DOCTYPE html&gt;",
-      answer2: "&lt;html !DOCTYPE&gt;",
-      answer3: "&lt;html&gt;",
-      answer: "answer1",
-      price: 200
+        question: "Hvordan starter man et html document?",
+        answer1: "&lt;!DOCTYPE html&gt;",
+        answer2: "&lt;html !DOCTYPE&gt;",
+        answer3: "&lt;html&gt;",
+        answer: "answer1",
+        price: 100
     },
     {
         question: "Hvordan laver man en variable i javascript?",
         answer1: 'navn = "String"',
         answer2: 'let navn = "String"',
         answer3: 'let = "string"',
-        answer: "answer2"
+        answer: "answer2",
+        price: 100
     },
     {
         question: "Hvad står html for?",
         answer1: 'Hyper Tag Markup Language',
         answer2: 'Hyper Text Markup Language',
         answer3: 'Hyperlinking Text Marking Language',
-        answer: "answer2"
+        answer: "answer2",
+        price: 100
     },
     {
         question: "Hvad er det korrekte tag for en line break?",
         answer1: '&lt;line /&gt;',
         answer2: '&lt;brk /&gt;',
         answer3: '&lt;br /&gt;',
-        answer: "answer3"
+        answer: "answer3",
+        price: 100
     },
     {
         question: "Hvad står css for",
         answer1: 'Cascading Style Sheet',
         answer2: 'Computing Style Sheet',
         answer3: 'Creative Styling Sheet',
-        answer: "answer1"
+        answer: "answer1",
+        prcei: 100
+    },
+    {
+        question: "Vælg det korrekte HTML tag for den største overskrift?",
+        answer1: '&lt;heading&gt;',
+        answer2: '&lt;h1&gt;',
+        answer3: '&lt;h6&gt;',
+        answer: "answer2",
+        price: 100
+    },
+    {
+
+        question: "BONUS SPØRGSMÅL!!!<br />Hvordan laver man et link i HTML?",
+        answer1: '&lt;a href="#"&gt;&lt;/a&gt;',
+        answer2: '&lt;a url="#"&gt;&lt;/a&gt;',
+        answer3: '&lt;a name="#"&gt;&lt;/a&gt;',
+        answer: "answer1",
+        price: 200
+    },
+    {
+        question: "Hvordan insætter man et billede i HTML?",
+        answer1: '&lt;img href="image.gif" alt="MyImage"&gt;',
+        answer2: '&lt;img src="image.gif" alt="MyImage"&gt;',
+        answer3: '&lt;image src="image.gif" alt="MyImage"&gt;',
+        answer: "answer2",
+        price: 100
+
+    },
+
+    {
+        question: "Hvad er den korrekte måde at lave en checkbox i HTML?",
+        answer1: '&lt;input type="check"&gt;',
+        answer2: '&lt;checkbox&gt;',
+        answer3: '&lt;input type="checkbox"&gt;',
+        answer: "answer3",
+        price: 100
+
+    },
+
+    {
+        question: "Hvordan tilføjer man en baggrunds farve til alle &lt;h1&gt;?",
+        answer1: 'h1 {background-color:#FFFFFF;}',
+        answer2: 'h1.all {background-color:#FFFFFF;}',
+        answer3: 'all.h1 {background-color:#FFFFFF;}',
+        answer: "answer1",
+        price: 100
+
+    },
+
+    {
+        question: "BONUS SPØRGSMÅL!!!<br />Hvilket tegn bruger jQuery som genvej til jQuery?",
+        answer1: '?',
+        answer2: '#',
+        answer3: '$',
+        answer: "answer3",
+        price: 200
+
+    },
+    {
+        question: "Hvor mange h1 tag er korrekt at bruge?",
+        answer1: '1',
+        answer2: '5',
+        answer3: 'bestemmer man selv',
+        answer: "answer1",
+        price: 100
+
+    },
+    {
+        question: "Hvad står SEO for?",
+        answer1: 'Search Optimization',
+        answer2: 'Search Engine Optimization',
+        answer3: 'Search Engine',
+        answer: "answer2",
+        price: 100
+
+    },
+    {
+        question: "Hvilket tegn bruges foran dit class navn i css?",
+        answer1: ',',
+        answer2: '#',
+        answer3: '.',
+        answer: "answer3",
+        price: 100
+
+    },
+
+    {
+        question: "Hvilket tegn bruges foran dit id navn i css?",
+        answer1: ',',
+        answer2: '#',
+        answer3: '.',
+        answer: "answer2",
+        price: 100
+
     }
-    
-  ];
+];
 
   //This function checks with have been draged to an element, to get information that is used to check player moves.
 function drop(ev) {
@@ -239,7 +313,6 @@ function drop(ev) {
                 if (ev.target.parentElement.id === "playerTwo") {
                     playerTwoMoves = 0;
                 }
-                
         } else {
             ev.preventDefault();
             let data = ev.dataTransfer.getData("text");
@@ -247,8 +320,10 @@ function drop(ev) {
         }
         
     if(ev.target.classList[2] == "question") {
-        questionNumber = Math.floor(Math.random(0, ) * 6);
-        cardBox.insertAdjacentHTML("afterbegin", `<form id="card" class="card-box"><div class="card"><div class="front"><div class="back"><h2>${questions[questionNumber].question}</h2><input type="radio" class="answer" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" class="answer"name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" class="answer" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></div></div></form>`);
+        questionNumber = Math.floor(Math.random(0) * 14);
+        console.log(questionNumber);
+        
+        cardBox.insertAdjacentHTML("afterbegin", `<form id="card" class="card-box"><div class="card"><div class="front"></div><div class="back"><h2>${questions[questionNumber].question}</h2><input type="radio" class="answer" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" class="answer"name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" class="answer" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></div></div></form>`);
         // cardBox.insertAdjacentHTML("afterbegin", `<form id="qustion-box" class="qustion-box"><h2>${questions[questionNumber].question}</h2><input type="radio" class="answer" name="answer" value="answer1" /><span>${questions[questionNumber].answer1}</span><br /><input type="radio" class="answer"name="answer" value="answer2" /><span>${questions[questionNumber].answer2}</span><br /><input type="radio" class="answer" name="answer" value="answer3" /><span>${questions[questionNumber].answer3}</span><br /> <button id="answerBtn" onclick="answerFunc()" type="button">Svar</button></form>`);
         answerBtn = document.getElementById('answerBtn');
         answer = document.getElementsByName('answer');
@@ -264,15 +339,31 @@ function answerFunc() {
             if (answer[i].checked) {
                 if (questions[questionNumber].answer === answer[i].value) {
                 playArea.classList = " playArea green-border";
-                document.getElementById('rightOrWrong').innerHTML = "Rigtig! Slå igen og ryk frem."
-                document.getElementById("qustion-box").remove();
+                // document.getElementById('rightOrWrong').innerHTML = "Rigtig! Slå igen og ryk frem."
+                document.getElementById("card").remove();
+                document.body.insertAdjacentHTML('afterbegin','<img id="winning" src="images/wining.gif">');
 
+                if (playerOneTurn == 1) {
+                    playerTwoScore += parseInt(questions[questionNumber].price);
+                    console.log('Player 2: ' + playerTwoScore);
+                } else if(playerTwoTurn == 1) {
+                    playerOneScore += parseInt(questions[questionNumber].price);
+                    console.log('Player 1: ' + playerOneScore);
+                }
+                setTimeout(() => {
+                    let winning = document.getElementById('winning');
+                    winning.remove();
+                }, 2000);
             } else {
                 console.error("%cWRONG NOOB", 'color: blue; font-family: cursive; font-size: 5em;');
-                
                 playArea.classList = "playArea red-border";
-                document.getElementById('rightOrWrong').innerHTML = "Forkert! Vent til det er din tur."
-                document.getElementById("qustion-box").remove();
+                // document.getElementById('rightOrWrong').innerHTML = "Forkert! Vent til det er din tur."
+                document.getElementById("card").remove();
+                document.body.insertAdjacentHTML('afterbegin','<img id="wrong" src="images/giphy.gif">');
+                setTimeout(() => {
+                    let winning = document.getElementById('wrong');
+                    winning.remove();
+                }, 1000);
             }
         }
     }
@@ -305,3 +396,33 @@ tileArray()[20].classList += " question";
 tileArray()[24].classList += " question";
 tileArray()[28].classList += " question";
 tileArray()[31].classList += " question";
+
+function playerBorder() {
+    //For loop that recognise whitch turn it is (Sætter en border omkring det felt spilleren skal rykke til) 
+    for (let i = 0; i < tileArray().length; i++) {
+        tileArray()[i].style.border = "2px solid rgba(0, 0, 0, 0.185)";
+        if (playerOneTurn == 1) {
+            if (parseInt(playerOneMoves) >= parseInt(tileArray().length)) {
+                //!!Skal måske bruges senere!!
+                playerOneMoves = 0;
+                
+                } else {
+                    //applies border.
+                    tileArray()[playerTwoMoves].style.border = "5px solid blue";
+                }
+            }
+        if (playerTwoTurn == 1) {
+            if (parseInt(playerTwoMoves) >= parseInt(tileArray().length)) {
+                //!!Skal måske bruges senere!!
+                playerTwoMoves = tileArray().length -1 - parseInt(playerTwoMoves) + parseInt(array_dices);
+                
+                } else {
+                    //applies border.
+                    tileArray()[playerOneMoves].style.border = "5px solid black";
+                }
+            }
+    }
+    console.log((parseInt(playerOneMoves) >= parseInt(tileArray().length)));
+    
+    console.log(playerOneMoves);
+}
